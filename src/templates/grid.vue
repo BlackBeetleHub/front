@@ -20,7 +20,6 @@
 </template>
 <script>
   export default {
-    template: '#grid-template',
     props: {
       data: Array,
       columns: Array,

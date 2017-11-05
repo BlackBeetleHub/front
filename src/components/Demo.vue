@@ -3,11 +3,11 @@
     <h1>Not hello bitch</h1><br/>
     <div class="center_el out_put_data">
       <div>
-        <demo-grid
+        <OutPutDataGridVue
           :data="gridData"
           :columns="gridColumns"
           :filter-key="searchQuery">
-        </demo-grid>
+        </OutPutDataGridVue>
       </div>
     </div>
 
