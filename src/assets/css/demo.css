@@ -1,0 +1,40 @@
+.center_el{
+  position: relative;
+  display: table;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 3em;
+}
+
+.editor_content {
+}
+
+ul.hr {
+  margin: 0; /* Обнуляем значение отступов */
+  padding: 4px; /* Значение полей */
+}
+ul.hr li {
+  display: inline; /* Отображать как строчный элемент */
+  margin-right: 3em; /* Отступ слева */
+  padding: 3px; /* Поля вокруг текста */
+}
+
+.icon {
+  width: 15ex;
+  height: 15ex;
+}
+
+.bar {
+  position: relative;
+  background: rgba(0, 0, 0, 0.6)!important;
+  width: 100%;
+  height: 5em;
+}
+
+#support_devices {
+  position: relative;
+  display: table;
+  margin-right: auto;
+  margin-left: auto;
+  bottom: -70%;
+}

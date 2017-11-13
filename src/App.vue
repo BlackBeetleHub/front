@@ -4,17 +4,6 @@
   </div>
 </template>
 
-<script>
-import OutPutDataGridVue from '@/templates/grid.vue'
-
-export default {
-  name: 'app',
-  components: {
-    OutPutDataGridVue
-  }
-}
-</script>
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
