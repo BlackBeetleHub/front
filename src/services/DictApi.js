@@ -1,4 +1,7 @@
 import Api from '@/services/Api'
+import axios from 'axios'
+
+axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
 
 export default {
   getAllWords (authParams) {
@@ -8,6 +11,6 @@ export default {
     return Api().post('get_all_user_words', identificationParams)
   },
   createAccount (createParams) {
-    return Api().post('create_account', createParams)
+    return Api().post('/create_account', createParams)
   }
 }
