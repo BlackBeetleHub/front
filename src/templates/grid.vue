@@ -117,8 +117,6 @@
     user-select: none;
   }
 
-
-
   td {
     background-color: #f9f9f9;
   }
@@ -131,4 +129,5 @@
   th.active {
     color: #fff;
   }
+
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <img v-bind:src="link"/>
+    <el-input placeholder="Email" v-model="input"></el-input>
+    <el-input placeholder="Password" v-model="input"></el-input>
   </div>
 </template>
 <script>

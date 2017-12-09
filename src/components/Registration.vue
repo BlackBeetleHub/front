@@ -20,11 +20,11 @@
       </div>
       <div class="field">
         <label>Password</label>
-        <input name="username" v-model="password"/><br/>
+        <input name="username" type="password" v-model="password"/><br/>
       </div>
       <div class="field">
         <label>Re-password</label>
-        <input name="username" v-model="repassword"/><br/>
+        <input name="username" type="password" v-model="repassword"/><br/>
       </div>
     </div>
     <button class="registration_button" @click="reg"><h3>Let's go!</h3></button>
@@ -106,10 +106,12 @@
           }
           let data = new FormData()
           data.append('pass', this.password)
-          data.append('details', details)
+          data.append('details', JSON.stringify(details))
           const response = await DictApi.createAccount(data)
           console.log(response.data)
-          DictApi.console.log(details)
+          const responseId = await DictApi.getAccountIdByEmail({params: {email: this.email}})
+          localStorage.setItem('account_id', responseId.data)
+          window.location = 'http://localhost:8080/#/demo'
         } else {
           this.resultRegistrationCode = 'Something wrong\n'
         }
