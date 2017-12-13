@@ -1,78 +1,54 @@
 <template>
-  <div class="center_el">
-    <div class="center_el main_title">
-      <h2>Registration</h2>
-    </div>
-
-    <div class="main_block_reg center_el">
-
-      <div class="field error">
-        {{ resultRegistrationCode }}
+  <div>
+    <el-row :gutter="40">
+      <div class="grid-content bg-purple">
+        <el-col :span="6" :offset="9">
+          <h1>Sign in to EasyReading</h1>
+          <div class="auth-form-body">
+            <el-input placeholder="Email" v-model="input">
+            </el-input>
+            <el-input placeholder="Password" v-model="input">
+            </el-input>
+            <el-button type="success">Sign In</el-button>
+          </div>
+        </el-col>
       </div>
-
-      <div class="field">
-        <label>Username</label>
-        <input name="username" v-model="username"/>
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input name="email" v-model="email"/><br/>
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input name="username" type="password" v-model="password"/><br/>
-      </div>
-      <div class="field">
-        <label>Re-password</label>
-        <input name="username" type="password" v-model="repassword"/><br/>
-      </div>
-    </div>
-    <button class="registration_button" @click="reg"><h3>Let's go!</h3></button>
-    <br/>
+      <el-col :span="6" :offset="9">
+        New to EasyReading? <a href="#/registration">Create an account.</a>
+      </el-col>
+    </el-row>
   </div>
+
 </template>
 
 <style>
-  .field {
-    position: relative;
-    clear: both;
-    text-align: right;
-    line-height: 25px;
+  .el-row {
+    margin-top: 70px;
   }
 
-  input {
-    border: solid 1px rgb(57, 128, 181);
+  .el-input {
+    margin-bottom: 20px;
   }
 
-  label {
-    position: relative;
-    float: left;
-    padding-right: 10px;
+  .el-col {
+    margin-top: 30px;
   }
 
-  .main_block_reg {
-    width: 200px;
-    margin: 20px auto;
-    border: solid 10px rgb(57, 128, 181);
+  .auth-form-header h1 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+  }
+
+  .auth-form-body {
+    width: auto;
     padding: 20px;
-    border-radius: 40px 10px;
-  }
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #d8dee2;
 
-  .registration_button {
-    background: rgb(255, 255, 255);
-    border: solid 5px rgb(57, 128, 181);
-    border-radius: 20px 5px;
+    border-radius: 3px 3px 3px 3px;
   }
-
-  .error {
-    color: crimson;
-  }
-
-  .back_ground_text {
-    z-index: 1;
-    position: absolute;
-  }
-
 </style>
 
 <script>

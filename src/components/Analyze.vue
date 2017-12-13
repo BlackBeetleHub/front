@@ -2,50 +2,57 @@
   <div>
     <el-header class="header-marker">
       <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"><h3>Services</h3></div></el-col>
-        <el-col :span="16"><div class="grid-content bg-purple lol"><ToolBar></ToolBar></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"><h3>Information</h3></div></el-col>
+        <el-col :span="4">
+          <div class="grid-content bg-purple"><h3>Services</h3></div>
+        </el-col>
+        <el-col :span="16">
+          <div class="grid-content bg-purple lol">
+            <ToolBar></ToolBar>
+          </div>
+        </el-col>
+        <el-col :span="4">
+          <div class="grid-content bg-purple"><h3>Information</h3></div>
+        </el-col>
       </el-row>
     </el-header>
     <el-container class="container-marker">
-      <el-aside class="aside-marker" width="20em">Aside</el-aside>
+      <el-aside class="aside-marker" width="20em">
+        <LinguaLeoAuth :email="leo_username" :password="leo_password"></LinguaLeoAuth>
+      </el-aside>
       <el-main class="main-marker">
         <el-row>
-        <el-input
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 20}"
-          placeholder="Please input"
-          v-model="textarea3">
-        </el-input>
+          <el-input
+            type="textarea"
+            :rows="25"
+            placeholder="Please input"
+            v-model="textarea3">
+          </el-input>
         </el-row>
-        <el-row :gutter="20">
-          <el-col :span="12" :offset="6">
-            <div class="editor-wrapper">
-            <OutPutDataGridVue
-              :data="gridData"
-              :columns="gridColumns">
-            </OutPutDataGridVue>
-          </div>
-        </el-col>
+        <el-row>
+          <el-button type="primary" @click="getAll" round>OK</el-button>
+        </el-row>
+        <el-row>
+          <OutPutDataGridVue
+            :data="gridData"
+            :columns="gridColumns">
+          </OutPutDataGridVue>
         </el-row>
       </el-main>
-      <el-aside class="aside-marker" width="20em">Aside</el-aside>
+      <el-aside class="aside-marker" width="20em">
+        <Information>
+        </Information>
+      </el-aside>
     </el-container>
   </div>
 </template>
-
 <style>
-
-  .editor-wrapper {
-    margin-top: 9px;
-  }
 
   .lol {
     margin-top: 9px;
   }
 
   .header-marker {
-    background-color: #137794;
+    background-color: #008c94;
   }
 
   .container-marker {
@@ -65,19 +72,45 @@
   import ElDialog from '../../node_modules/element-ui/packages/dialog/src/component.vue'
   import ToolBar from '@/templates/tool_bar/ToolBar.vue'
   import OutPutDataGridVue from '@/templates/grid.vue'
+  import LinguaLeoAuth from '@/templates/tools/services/LinguaLeo.vue'
+  import Information from '@/templates/information/wrapper.vue'
+  import Analyze from 'easy_text'
+  import DictApi from '@/services/DictApi'
 
   export default {
-    components: {ElDialog, ToolBar, OutPutDataGridVue},
+    components: {ElDialog, ToolBar, OutPutDataGridVue, LinguaLeoAuth, Information},
     data () {
       return {
         textarea3: '',
         gridColumns: ['Number', 'Word', 'Translate', 'Count'],
         gridData: [
           {Number: '', Word: '', Translate: '', Count: ''}
-        ]
+        ],
+        leo_username: '',
+        leo_password: ''
       }
     },
-    methods: {},
+    methods: {
+      async getAll () {
+        this.gridData = []
+        console.log(localStorage.getItem('email_leo'))
+        console.log(localStorage.getItem('pass_leo'))
+        const response = await DictApi.getAllWords({
+          params: {
+            email: localStorage.getItem('email_leo'),
+            pass: localStorage.getItem('pass_leo')
+          }
+        })
+        console.log(response.data)
+        let allWords = Analyze.ProcessTextAllModules(this.textarea3)
+        console.log(allWords)
+        let unknownWords = Analyze.GetUnknownWords(allWords, response.data)
+        for (let i = 0; i < unknownWords.length; i++) {
+          let countWord = Analyze.BasicInformation.GetCountUsageWord(unknownWords[i], this.textarea3)
+          this.gridData.push({Number: i, Word: unknownWords[i], Translate: '', Count: countWord})
+        }
+      }
+    },
     watch: {}
   }
 </script>

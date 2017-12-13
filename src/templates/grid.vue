@@ -1,22 +1,24 @@
 <template>
-  <table>
-    <thead>
-    <tr>
-      <th v-for="key in columns"
-          @click="sortBy(key)"
-          :class="{ active: sortKey == key }">
-        {{ key | capitalize }}
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="entry in event(filteredData)" v-on:click="handlerM(entry)">
-      <td v-for="key in columns">
-        {{entry[key]}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="center_el_must">
+    <table>
+      <thead>
+      <tr>
+        <th v-for="key in columns"
+            @click="sortBy(key)"
+            :class="{ active: sortKey == key }">
+          {{ key | capitalize }}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="entry in event(filteredData)" v-on:click="handlerM(entry)">
+        <td v-for="key in columns">
+          {{entry[key]}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 <script>
   export default {
@@ -80,27 +82,14 @@
 </script>
 <style>
 
-  .center_el{
-    position: relative;
-    display: table;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 3em;
-  }
-
-  .center_el{
-    position: relative;
-    display: table;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 3em;
-  }
-
   .input_text {
     width: 100%;
     height: 50%;
   }
 
+  .center_el_must {
+    margin: 0 auto;
+  }
 
   table {
     border-radius: 3px;
@@ -109,7 +98,7 @@
 
   th {
     background-color: rgb(57, 128, 181);
-    color: rgba(255,255,255,0.88);
+    color: rgba(255, 255, 255, 0.88);
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
