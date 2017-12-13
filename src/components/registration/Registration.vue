@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-container-body">
     <el-row :gutter="40">
       <el-col :span="6" :offset="9">
         <img class="logo-reg" src="../../assets/logo.png">
@@ -19,13 +19,19 @@
         </el-col>
       </div>
       <el-col :span="6" :offset="9">
+        <div class="auth-form-body">
         Already have account? <a href="#/login">Sign In.</a>
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <style>
+  .main-container-body{
+    background-color: #f9f9f9;
+  }
+
   .el-row {
     margin-top: 70px;
   }

@@ -3,6 +3,9 @@
     <el-row :gutter="40">
       <div class="grid-content bg-purple">
         <el-col :span="6" :offset="9">
+          <img class="logo-auth" src="../../assets/logo.png">
+        </el-col>
+        <el-col :span="6" :offset="9">
           <h1>Sign in to EasyReading</h1>
           <div class="auth-form-body">
             <el-input placeholder="Email" v-model="input">
@@ -22,6 +25,11 @@
 </template>
 
 <style>
+  .logo-auth {
+    width: 5em;
+    height: 5em;
+  }
+
   .el-row {
     margin-top: 70px;
   }
