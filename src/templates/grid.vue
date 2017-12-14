@@ -1,23 +1,50 @@
 <template>
-  <div class="center_el_must">
-    <table>
-      <thead>
-      <tr>
-        <th v-for="key in columns"
-            @click="sortBy(key)"
-            :class="{ active: sortKey == key }">
-          {{ key | capitalize }}
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="entry in event(filteredData)" v-on:click="handlerM(entry)">
-        <td v-for="key in columns">
-          {{entry[key]}}
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div>
+  <el-dialog title="Shipping address" :visible.sync="dialogVisible">
+    <span>It should be noted that the content will not be aligned in center by default</span>
+  </el-dialog>
+  <el-table border
+            :data="data"
+            style="width: 100%">
+    <el-table-column
+      label="Number"
+      width="180"
+      prop="Number">
+    </el-table-column>
+    <el-table-column
+      label="Word"
+      width="180"
+      prop="Word">
+    </el-table-column>
+    <el-table-column
+      label="Count"
+      width="180"
+      prop="Count">
+    </el-table-column>
+    <el-table-column
+      label="Operations">
+      <template slot-scope="scope">
+        <el-button-group>
+          <el-button
+            type="primary" icon="el-icon-edit"
+            @click="handleEdit(scope.$index, scope.row)">
+          </el-button>
+          <el-button
+            type="primary" icon="el-icon-share"
+            @click="handleEdit(scope.$index, scope.row)">
+          </el-button>
+          <el-button
+            type="primary" icon="el-icon-delete"
+            @click="handleDelete(scope.$index, scope.row)">
+          </el-button>
+          <el-button
+            type="primary" icon="el-icon-info"
+            @click="handleInfo(scope.$index, scope.row)">
+          </el-button>
+        </el-button-group>
+      </template>
+    </el-table-column>
+  </el-table>
   </div>
 </template>
 <script>
@@ -27,96 +54,26 @@
       columns: Array,
       filterKey: String
     },
-    data: function () {
-      let sortOrders = {}
-      this.columns.forEach(function (key) {
-        sortOrders[key] = 1
-      })
+    data () {
       return {
-        sortKey: '',
-        sortOrders: sortOrders
-      }
-    },
-    computed: {
-      filteredData: function () {
-        let sortKey = this.sortKey
-        let filterKey = this.filterKey && this.filterKey.toLowerCase()
-        let order = this.sortOrders[sortKey] || 1
-        let data = this.data
-        if (filterKey) {
-          data = data.filter(function (row) {
-            return Object.keys(row).some(function (key) {
-              return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-            })
-          })
-        }
-        if (sortKey) {
-          data = data.slice().sort(function (a, b) {
-            a = a[sortKey]
-            b = b[sortKey]
-            return (a === b ? 0 : a > b ? 1 : -1) * order
-          })
-        }
-        return data
-      }
-    },
-    filters: {
-      capitalize: function (str) {
-        return str.charAt(0).toUpperCase() + str.slice(1)
+        tableData: [],
+        Info: 'ssdsdsdsd',
+        dialogVisible: false
       }
     },
     methods: {
-      sortBy: function (key) {
-        this.sortKey = key
-        this.sortOrders[key] = this.sortOrders[key] * -1
+      handleEdit (index, row) {
+        console.log(index, row)
       },
-      event: function (number) {
-        return number
+      handleDelete (index, row) {
+        console.log(index, row)
       },
-      handlerM: function (entry) {
-        let index = this.filteredData.indexOf(entry)
-        this.filteredData.splice(index, 1)
+      handleInfo (index, row) {
+        this.dialogVisible = true
       }
     }
   }
 </script>
 <style>
-
-  .input_text {
-    width: 100%;
-    height: 50%;
-  }
-
-  .center_el_must {
-    margin: 0 auto;
-  }
-
-  table {
-    border-radius: 3px;
-    background-color: #fff;
-  }
-
-  th {
-    background-color: rgb(57, 128, 181);
-    color: rgba(255, 255, 255, 0.88);
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  td {
-    background-color: #f9f9f9;
-  }
-
-  th, td {
-    min-width: 120px;
-    padding: 10px 20px;
-  }
-
-  th.active {
-    color: #fff;
-  }
 
 </style>

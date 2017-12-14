@@ -29,7 +29,7 @@
           </el-input>
         </el-row>
         <el-row>
-          <el-button type="primary" @click="getAll" round>OK</el-button>
+          <el-button type="primary" :loading="isLoading" @click="getAll">OK</el-button>
         </el-row>
         <el-row>
           <OutPutDataGridVue
@@ -39,7 +39,10 @@
         </el-row>
       </el-main>
       <el-aside class="aside-marker" width="20em">
-        <Information>
+        <Information
+          :allWords="allWords"
+          :knownWords="knownWords"
+          :unknownWords="unknownWords">
         </Information>
       </el-aside>
     </el-container>
@@ -87,11 +90,16 @@
           {Number: '', Word: '', Translate: '', Count: ''}
         ],
         leo_username: '',
-        leo_password: ''
+        leo_password: '',
+        isLoading: false,
+        allWords: [],
+        knownWords: [],
+        unknownWords: []
       }
     },
     methods: {
       async getAll () {
+        this.isLoading = true
         this.gridData = []
         console.log(localStorage.getItem('email_leo'))
         console.log(localStorage.getItem('pass_leo'))
@@ -103,12 +111,14 @@
         })
         console.log(response.data)
         let allWords = Analyze.ProcessTextAllModules(this.textarea3)
-        console.log(allWords)
+        this.allWords = allWords
         let unknownWords = Analyze.GetUnknownWords(allWords, response.data)
+        this.unknownWords = unknownWords
         for (let i = 0; i < unknownWords.length; i++) {
           let countWord = Analyze.BasicInformation.GetCountUsageWord(unknownWords[i], this.textarea3)
           this.gridData.push({Number: i, Word: unknownWords[i], Translate: '', Count: countWord})
         }
+        this.isLoading = false
       }
     },
     watch: {}

@@ -1,7 +1,14 @@
 import axios from 'axios'
 
-export default () => {
-  return axios.create({
-    baseURL: `http://localhost:4000/`
-  })
+export default {
+  Api: function () {
+    return axios.create({
+      baseURL: `http://localhost:4000/`
+    })
+  },
+  LinguaLeo: function () {
+    return axios.create({
+      baseURL: `https://lingualeo.com/`
+    })
+  }
 }
