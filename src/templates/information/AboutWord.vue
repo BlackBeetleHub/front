@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="information-wrapper">
     <el-row>
-      <el-progress type="circle" :percentage="percent"></el-progress>
+      <el-progress type="circle" :percentage="percent">Unknown</el-progress>
     </el-row>
     <el-row></el-row>
     <el-row></el-row>
@@ -20,6 +20,9 @@
     },
     data: function () {
       return {
+        allWords: [],
+        knownWords: [],
+        unknownWords: []
       }
     },
     methods: {
@@ -34,5 +37,7 @@
 </script>
 
 <style>
-
+  .information-wrapper{
+    margin-top: 100px;
+  }
 </style>

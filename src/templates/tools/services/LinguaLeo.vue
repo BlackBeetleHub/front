@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="services-wrapper">
     <el-row>
       <el-col>
         <div class="grid-content bg-purple">
@@ -30,6 +30,23 @@
     </el-row>
   </div>
 </template>
+
+<style>
+  .el-row {
+    margin-bottom: 10px;
+  }
+
+  .services-wrapper {
+    margin-top: 15px;
+    padding: 10px;
+  }
+
+  .logo-lego-service {
+    width: 60px;
+    height: 60px;
+  }
+</style>
+
 <script>
   import ElRow from 'element-ui/packages/row/src/row'
 
@@ -60,13 +77,3 @@
     }
   }
 </script>
-<style>
-  .el-row {
-    margin-top: 10px;
-  }
-
-  .logo-lego-service {
-    width: 60px;
-    height: 60px;
-  }
-</style>

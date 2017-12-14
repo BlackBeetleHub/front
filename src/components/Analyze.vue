@@ -1,17 +1,17 @@
 <template>
   <div>
-    <el-header class="header-marker">
+    <el-header height="70px" class="header-marker">
       <el-row :gutter="20">
         <el-col :span="4">
-          <div class="grid-content bg-purple"><h3>Services</h3></div>
+          <div class="grid-content bg-purple trans-text"><h3>Services</h3></div>
         </el-col>
         <el-col :span="16">
-          <div class="grid-content bg-purple lol">
+          <div class="grid-content bg-purple">
             <ToolBar></ToolBar>
           </div>
         </el-col>
         <el-col :span="4">
-          <div class="grid-content bg-purple"><h3>Information</h3></div>
+          <div class="grid-content bg-purple trans-text"><h3>Information</h3></div>
         </el-col>
       </el-row>
     </el-header>
@@ -50,24 +50,25 @@
 </template>
 <style>
 
-  .lol {
-    margin-top: 9px;
+  .trans-text {
+    color: rgba(255,255,255,0.75);
   }
 
   .header-marker {
-    background-color: #008c94;
+    background-color: #24292e;
+    height: 500px;
   }
 
   .container-marker {
-    background-color: blanchedalmond;
+
   }
 
   .aside-marker {
-    background-color: azure;
+
   }
 
   .main-marker {
-    background-color: cornsilk;
+
   }
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="information-wrapper">
     <el-row>
       <el-progress type="circle" :percentage="percent"></el-progress>
     </el-row>
@@ -34,5 +34,7 @@
 </script>
 
 <style>
-
+  .information-wrapper{
+    margin-top: 15px;
+  }
 </style>
