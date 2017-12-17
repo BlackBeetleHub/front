@@ -51,7 +51,7 @@
 <style>
 
   .trans-text {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
   }
 
   .header-marker {
@@ -111,9 +111,20 @@
           }
         })
         console.log(response.data)
+        const resp = await DictApi.getAllUserKnownWords(
+          {
+            params: {
+              id_user: localStorage.getItem('account_id')
+            }
+          }
+        )
+        console.log(resp.data)
         let allWords = Analyze.ProcessTextAllModules(this.textarea3)
         this.allWords = allWords
-        let unknownWords = Analyze.GetUnknownWords(allWords, response.data)
+        let knowFromService = response.data
+        let knowFromDb = resp.data
+        let allKnow = knowFromService.concat(knowFromDb)
+        let unknownWords = Analyze.GetUnknownWords(allWords, allKnow)
         this.unknownWords = unknownWords
         for (let i = 0; i < unknownWords.length; i++) {
           let countWord = Analyze.BasicInformation.GetCountUsageWord(unknownWords[i], this.textarea3)
