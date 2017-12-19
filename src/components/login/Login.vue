@@ -10,7 +10,7 @@
           <div class="auth-form-body">
             <el-input placeholder="Email" v-model="email">
             </el-input>
-            <el-input placeholder="Password" v-model="password">
+            <el-input placeholder="Password" type="password" v-model="password">
             </el-input>
             <el-button type="success" @click="auth">Sign In</el-button>
           </div>

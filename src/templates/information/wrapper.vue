@@ -5,8 +5,8 @@
       <el-progress type="circle" :percentage="percent"></el-progress>
     </el-row>
     <el-row><el-button type="primary">Count word {{ allWords.length }}</el-button></el-row>
-    <el-row><el-button type="success">You known {{ allWords.length - unknownWords.length }}</el-button></el-row>
-    <el-row><el-button type="warning">You unknown {{ unknownWords.length }}</el-button></el-row>
+    <el-row><el-button type="success">You know {{ allWords.length - unknownWords.length }}</el-button></el-row>
+    <el-row><el-button type="warning">You don't know {{ unknownWords.length }}</el-button></el-row>
     <el-row></el-row>
   </div>
 </template>

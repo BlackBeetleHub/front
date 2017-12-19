@@ -12,7 +12,7 @@
             </el-input>
             <el-input placeholder="Username" v-model="username">
             </el-input>
-            <el-input placeholder="Password" v-model="password">
+            <el-input placeholder="Password" type="password" v-model="password">
             </el-input>
             <el-button type="success" @click="reg">Sign Up</el-button>
           </div>
