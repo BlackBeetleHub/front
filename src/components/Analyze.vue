@@ -73,7 +73,6 @@
 </style>
 
 <script>
-  import ElDialog from '../../node_modules/element-ui/packages/dialog/src/component.vue'
   import ToolBar from '@/templates/tool_bar/ToolBar.vue'
   import OutPutDataGridVue from '@/templates/grid.vue'
   import LinguaLeoAuth from '@/templates/tools/services/LinguaLeo.vue'
@@ -82,7 +81,7 @@
   import DictApi from '@/services/DictApi'
 
   export default {
-    components: {ElDialog, ToolBar, OutPutDataGridVue, LinguaLeoAuth, Information},
+
     data () {
       return {
         textarea3: '',
@@ -93,9 +92,9 @@
         leo_username: '',
         leo_password: '',
         isLoading: false,
-        allWords: [],
-        knownWords: [],
-        unknownWords: []
+        allWords: [''],
+        knownWords: [''],
+        unknownWords: ['']
       }
     },
     methods: {
@@ -133,6 +132,6 @@
         this.isLoading = false
       }
     },
-    watch: {}
+    components: {ToolBar, OutPutDataGridVue, LinguaLeoAuth, Information}
   }
 </script>

@@ -8,16 +8,17 @@
         <el-col :span="6" :offset="9">
           <h1>Sign in to EasyReading</h1>
           <div class="auth-form-body">
-            <el-input placeholder="Email" v-model="input">
+            <el-input placeholder="Email" v-model="email">
             </el-input>
-            <el-input placeholder="Password" v-model="input">
+            <el-input placeholder="Password" v-model="password">
             </el-input>
-            <el-button type="success">Sign In</el-button>
+            <el-button type="success" @click="auth">Sign In</el-button>
           </div>
         </el-col>
       </div>
       <el-col :span="6" :offset="9">
-        New to EasyReading? <a href="#/registration">Create an account.</a>
+        New to EasyReading? <a href="#/registration">Create an account.</a> or Next
+        <router-link :to="{ path: 'analyze', query: { plan: 'private' }}">step</router-link>
       </el-col>
     </el-row>
   </div>
@@ -68,76 +69,64 @@
       return {
         email: '',
         password: '',
-        username: '',
-        country: '',
-        city: '',
-        repassword: '',
-        resultRegistrationCode: '',
         isNormal: 0
       }
     },
     methods: {
-      async reg () {
-        if (this.isNormal === 15) {
-          this.resultRegistrationCode = 'Successful\n'
-          let details = {
-            email: this.email,
-            user_name: this.user_name,
-            full_name: '',
-            address: '',
-            created_at: new Date(),
-            last_seen_at: new Date()
-          }
+      async auth () {
+        if (this.isNormal === 5) {
           let data = new FormData()
-          data.append('pass', this.password)
-          data.append('details', JSON.stringify(details))
-          const response = await DictApi.createAccount(data)
-          console.log(response.data)
-          const responseId = await DictApi.getAccountIdByEmail({params: {email: this.email}})
-          localStorage.setItem('account_id', responseId.data)
-          window.location = 'http://localhost:8080/#/demo'
+          data.append('email', this.email)
+          data.append('password', this.password)
+          const accountID = await DictApi.loginAccount(data)
+          this.$notify({
+            title: 'Success',
+            message: 'Registration success',
+            type: 'success'
+          })
+          localStorage.setItem('user_email', this.email)
+          localStorage.setItem('account_id', accountID.data)
+          this.$router.push({name: 'analyze'})
         } else {
-          this.resultRegistrationCode = 'Something wrong\n'
+          if (this.isNormal === 1) {
+            this.$notify({
+              title: 'Error',
+              message: 'Password must be at least 6 characters long',
+              type: 'error'
+            })
+          } else if (this.isNormal === 4) {
+            this.$notify({
+              title: 'Error',
+              message: 'Email is not correct',
+              type: 'error'
+            })
+          } else {
+            this.$notify({
+              title: 'Error',
+              message: 'Email and password is not correct',
+              type: 'error'
+            })
+          }
         }
       }
     },
     watch: {
       email: function (value) {
-        if (value === '') {
-          this.resultRegistrationCode = 'Email empty\n'
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if (!re.test(this.email)) {
           this.isNormal &= ~1
         } else {
           this.isNormal |= 1
         }
         this.email = value
       },
-      username: function (value) {
-        if (value === '') {
-          this.resultRegistrationCode = 'Username empty\n'
-          this.isNormal &= ~2
-        } else {
-          this.isNormal |= 2
-        }
-        this.username = value
-      },
       password: function (value) {
-        if (value === '') {
-          this.resultRegistrationCode = 'Password empty\n'
-          this.isNormal &= ~4
-        } else {
+        if (value.length > 6 && /\d/.test(value)) {
           this.isNormal |= 4
+        } else {
+          this.isNormal &= ~4
         }
         this.password = value
-      },
-      repassword: function (value) {
-        if (value !== this.password) {
-          this.resultRegistrationCode = 'Password not equal empty\n'
-          this.isNormal &= ~8
-        } else {
-          this.isNormal |= 8
-          this.resultRegistrationCode = ''
-        }
-        this.repassword = value
       }
     }
   }

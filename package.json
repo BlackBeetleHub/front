@@ -21,6 +21,7 @@
     "child_process": "^1.0.2",
     "cookies": "^0.7.1",
     "cookies-js": "^1.2.3",
+    "cors": "^2.8.4",
     "easy_text": "git+https://github.com/BlackBeetleHub/easy-analyze-lib.git",
     "element-ui": "^2.0.7",
     "fs": "0.0.1-security",

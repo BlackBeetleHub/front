@@ -26,20 +26,8 @@
         <template slot-scope="scope">
           <el-button-group>
             <el-button
-              type="primary" icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)">
-            </el-button>
-            <el-button
-              type="primary" icon="el-icon-share"
-              @click="handleEdit(scope.$index, scope.row)">
-            </el-button>
-            <el-button
               type="primary" icon="el-icon-delete"
               @click="handleDelete(scope.$index, scope.row)">
-            </el-button>
-            <el-button
-              type="primary" icon="el-icon-info"
-              @click="handleInfo(scope.$index, scope.row)">
             </el-button>
           </el-button-group>
         </template>
@@ -64,9 +52,6 @@
       }
     },
     methods: {
-      handleEdit (index, row) {
-        console.log(index, row)
-      },
       async handleDelete (index, row) {
         console.log(row)
         console.log(row.Word)
@@ -77,9 +62,6 @@
           }
         })
         this.data.splice(index, 1)
-      },
-      handleInfo (index, row) {
-        this.dialogVisible = true
       }
     }
   }

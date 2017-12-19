@@ -1,7 +1,8 @@
 <template>
   <div class="information-wrapper">
     <el-row>
-      <el-progress type="circle" :percentage="percent">Unknown</el-progress>
+      <label>Unknown words</label>
+      <el-progress type="circle" :percentage="100 - percent">Unknown</el-progress>
     </el-row>
     <el-row></el-row>
     <el-row></el-row>
@@ -30,14 +31,19 @@
     },
     computed: {
       percent: function () {
+        console.log('lol')
+        console.log(Math.round((100 * this.unknownWords.length) / this.allWords.length))
         return Math.round((100 * this.unknownWords.length) / this.allWords.length)
       }
+    },
+    watch: {
+
     }
   }
 </script>
 
 <style>
-  .information-wrapper{
+  .information-wrapper {
     margin-top: 100px;
   }
 </style>

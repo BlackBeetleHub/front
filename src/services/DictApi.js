@@ -13,6 +13,9 @@ export default {
   createAccount (createParams) {
     return Api.Api().post('/create_account', createParams)
   },
+  loginAccount (loginParams) {
+    return Api.Api().post('/login', loginParams)
+  },
   getAccountIdByEmail (getParams) {
     return Api.Api().get('/account_id', getParams)
   },

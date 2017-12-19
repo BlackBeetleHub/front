@@ -20,7 +20,7 @@
       </div>
       <el-col :span="6" :offset="9">
         <div class="auth-form-body">
-        Already have account? <a href="#/login">Sign In.</a>
+          Already have account? <a href="#/login">Sign In.</a>
         </div>
       </el-col>
     </el-row>
@@ -28,7 +28,7 @@
 </template>
 
 <style>
-  .main-container-body{
+  .main-container-body {
     background-color: #f9f9f9;
   }
 
@@ -102,44 +102,62 @@
           console.log(response.data)
           const responseId = await DictApi.getAccountIdByEmail({params: {email: this.email}})
           localStorage.setItem('account_id', responseId.data)
+          localStorage.setItem('user_email', this.email)
           this.$notify({
             title: 'Success',
             message: 'Registration success',
             type: 'success'
           })
+          window.location.replace('/#/analyze')
         } else {
+          console.log(this.isNormal)
+
+          if ((this.isNormal & 1) !== 1) {
+            this.$notify({
+              title: 'Error',
+              message: 'Email is not correct',
+              type: 'error'
+            })
+          } else if ((this.isNormal & 2) !== 2) {
+            this.$notify({
+              title: 'Error',
+              message: 'Username must be at least 3 characters long',
+              type: 'error'
+            })
+          } else if ((this.isNormal & 4) !== 4) {
+            this.$notify({
+              title: 'Error',
+              message: 'Password must be at least 6 characters long',
+              type: 'error'
+            })
+          }
         }
       }
     },
     watch: {
       email: function (value) {
-        if (value === '') {
-          this.resultRegistrationCode = 'Email empty\n'
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if (!re.test(this.email)) {
           this.isNormal &= ~1
         } else {
           this.isNormal |= 1
         }
-        console.log('email')
         this.email = value
       },
       username: function (value) {
-        if (value === '') {
-          this.resultRegistrationCode = 'Username empty\n'
-          this.isNormal &= ~2
-        } else {
+        if (value.length > 3) {
           this.isNormal |= 2
+        } else {
+          this.isNormal &= ~2
         }
-        console.log('username')
         this.username = value
       },
       password: function (value) {
-        if (value === '') {
-          this.resultRegistrationCode = 'Password empty\n'
-          this.isNormal &= ~4
-        } else {
+        if (value.length > 6 && /\d/.test(value)) {
           this.isNormal |= 4
+        } else {
+          this.isNormal &= ~4
         }
-        console.log('password')
         this.password = value
       }
     }
