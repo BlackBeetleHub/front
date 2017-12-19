@@ -17,8 +17,7 @@
         </el-col>
       </div>
       <el-col :span="6" :offset="9">
-        New to EasyReading? <a href="#/registration">Create an account.</a> or Next
-        <router-link :to="{ path: 'analyze', query: { plan: 'private' }}">step</router-link>
+        New to EasyReading? <a href="#/registration">Create an account.</a>
       </el-col>
     </el-row>
   </div>

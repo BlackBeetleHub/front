@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar-wrapper">
-    <el-row type="flex" :gutter="6" justify="end">
-      <el-col :span="6">
+    <el-row type="flex"justify="end">
+      <el-col>
         <div>
           <el-row>
             <el-col :span="6">
@@ -9,7 +9,7 @@
                 {{ username }}
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="6" :offset="12">
               <div class="grid-content bg-purple"><img class="exit-icon" @click="logOutHandler" src="../../assets/exit.png"/></div>
             </el-col>
           </el-row>
